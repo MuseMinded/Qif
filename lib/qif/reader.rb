@@ -140,7 +140,10 @@ module Qif
       headers = []
       begin
         line = @data.readline.strip
-        line.slice!(0) if line.split('')[0] != '!'
+        index_info = line.index('!')
+         if index_info
+          line = line[index_info..] 
+        end
         headers << line.strip if line =~ /^!/
       end until line !~ /^!/
 
